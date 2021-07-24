@@ -38,19 +38,36 @@ We are going to run a couple SQL queries and put the answers in the "Query Respo
 
 ## Query Responses
 
-1. Sums
-  * AK:
-  * CT
-  * TX:
-  * WY:
+1.SELECT COUNT(user_ID), state
+ FROM usersAddress GROUP BY state
+ ORDER BY COUNT(user_ID) DESC;
+ 
+ Sums
+  * AK:6
+  * CT:5
+  * TX:32
+  * WY:3
 
-2.
-  * Area code:
+2.SELECT COUNT( * ) , SUBSTRING(phone1, 1, 3) AS areacode
+ FROM usersContact
+ GROUP BY SUBSTRING(phone1, 1, 3)
+ ORDER BY COUNT(*) DESC;
+ 
+  * Area code:973
 
-3.
-  * first_name:
-  * county:
-  * county total:
+3.SELECT
+MIN(users.first_name) as userName,
+usersAddress.county as userCounty,
+COUNT(usersAddress.id) as countyUsers
+FROM users
+JOIN usersAddress
+WHERE users.id = usersAddress.user_id
+GROUP BY userCounty
+HAVING countyUsers > 10
+
+  * first_name: alaine
+  * county:orange
+  * county total:11
 
 
 ## Summary
